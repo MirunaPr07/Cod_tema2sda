@@ -1,0 +1,30 @@
+In acest cod, citesc mai intai din terminal numele task ului si numele fisierului de intrare si iesire.
+Am definita o structura pentru arbore, in care imi declar numarul de copii, nivelul, caracterul, un sir compact(folosit doar la task ul 4)
+si un vector de copii. Node reprezinta un nod in arbore, iar Tree reprezinta un pointer catre un element de tip Node.
+Initial, imi aloc memorie pentru un arbore de care ma voi folosi in fiecare task.
+Toate cele 4 task uri au o parte comuna, cea in care creez arborele, folosindu ma de functia adauga_sufixe, careia ii trimit ca parametru
+pe rand sirurile citite din fisierul de intrare. In interiorul acesteia, imi concatenez caracterul '$' la sir si ii extrag fiecare sufix.
+Pentru fiecare sufix, parcurg arborele pana in punctul in care nu mai corespunde caracterul curent din sir cu caracterul din nod. Dupa aceea,
+trebuie sa adaug un nou fiu in vectorul de copii al nodului la care am ajuns in arbore. Daca am deja elemente in vectorul de fii, trebuie sa
+imi realoc vectorul cu un element in plus si sa interschimb fiii pana cand ajung sa aiba caracterele in ordine si inaintez in arbore pe nodul creat.
+Cat timp nu am ajuns la finalul sirului, adaug ca prim element al vectorului de fii al nodului la care sunt caracterul curent al sirului sufix.
+Tot ca parte comuna a tuturor task urilor, imi declar un vector ce va contine pointeri catre fiecare nod al arborelui atomic(Tree). Numarul de elemente
+al acestuia este nr_parinti. In functia parcurgere_latime, imi creez acest vector de noduri, printr o parcurgere in latime. Astfel, vectorul 
+adresele tine locul unei cozi folosite pentru a face parcurgerea in latime. Pentru task ul 1, imi mai ramane doar sa afisez caracterele elementelor
+de la adresele retinute mai sus, lucru pe care il fac in functia afisare latime. Singurul lucru special la aceasta functie este faptul ca 
+imi verific momentul in care trec la alt nivel pentru a sti cand imi afisez un terminator de sir. Fiecare nod are campul nivel calculat din functia
+parcurgere_latime. La task ul 2, am 3 afisari ale unor valori returnate de 3 functii: in numar_frunze parcurg fiecare nod de la adresele si
+calculez cate noduri am pentru care nr_copii e 0; in sufixe_k trebuie sa returnez cate sufixe fara terminatorul '$' am care sa aiba lungimea k,
+astfel ca pentru sufixele la care iau in calcul si '$' trebuie sa am lungimea k+1, astfel ca parcurg nodurile din adresele si numar cate dintre ele
+se afla la nivelul k+1 si nu mai au copii; functia max_desc imi returneaza numarul maxim de descendenti directi ai nodurilor din cele retinute
+la adresele. Pentru task ul 3, citesc sufixele si apelez functia exista_sufix, careia ii trimit ca parametri sufixul citit si arborele atomic.
+Pentru fiecare caracter al sufixului, verific daca am un fiu al nodului la care sunt din arbore care sa aiba acelasi caracter.
+Daca nu l am gasit, returnez direct 0, iar daca l am gasit ma mut in arbore pe fiul corespunzator. Pentru task ul 4, imi declar un nou arbore,
+pe care il creez in functia creeaza_compact. In ea, imi declar doi vectori de legaturi, unul ce retine legaturile din arborele atomic si unul
+cu legaturile din arborele compact. O legatura reprezinta un nod ce are mai multi copii sau are un unic copil cu caracterul '$'. Aici, caracterul
+'$' este considerat un sir de sine statator. Parcurg cele doua siruri, pentru fiecare element din vectorul de legaturi imi aloc atatia fii
+pentru legatura celui compact cati fii are legatura celui atomic. Parcurg toti copiii legaturii curente, imi creez un sir in care adaug caracterul
+fiecarui nod care are doar un fiu, exculzand '$'. Apoi, adaug sirul la indexul curent din vectorul ce contine legaturile vectorului compact.
+Daca sirul format nu este doar "$", adaug copilul respectiv in vectorii de legaturi. La fel ca la arborele atomic, dupa crearea arborelui, apelez
+parcurgere_latime pentru a crea vectorul ce contine adresele catre nodurile arborelui. In final, afisez sirurile din nodurile corespunzatoare adreselor,
+la fel ca la arborele atomic. In final, eliberez memoria alocata.
